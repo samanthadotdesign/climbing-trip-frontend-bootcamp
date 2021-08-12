@@ -1,11 +1,12 @@
 import React from 'react';
 import Homepage from './components/Homepage';
+import { RouteProvider } from './store';
 
 function App() {
   return (
-    <div className="App">
+    <RouteProvider>
       <Homepage />
-    </div>
+    </RouteProvider>
   );
 }
 
