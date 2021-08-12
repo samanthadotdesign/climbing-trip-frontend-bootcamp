@@ -8,7 +8,7 @@ export const ACTIONS = {
 };
 
 // Initial state
-const state = {
+const initialState = {
   routes: [],
 };
 
@@ -31,15 +31,17 @@ const getRoutesAction = (routes) => ({
 });
 
 export const RouteProvider = ({ children }) => {
-  const [store, dispatch] = useReducer(routeReducer, state);
+  const [store, dispatch] = useReducer(routeReducer, initialState);
 
   return (
     <Provider value={{ store, dispatch }}>{children}</Provider>
   );
 };
 
+const REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3004';
+
 export const getRoutes = (dispatch) => {
-  axios.get('/').then((result) => {
-    dispatch(getRoutesAction(result.data));
+  axios.get(`${REACT_APP_BACKEND_URL}/routes`).then((result) => {
+    dispatch(getRoutesAction(result.data.routes));
   });
 };

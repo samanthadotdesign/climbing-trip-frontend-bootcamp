@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { getRoutes, RouteContext } from '../store';
+import NewRoute from './NewRoute';
 
 export default function Homepage() {
   const { store, dispatch } = useContext(RouteContext);
