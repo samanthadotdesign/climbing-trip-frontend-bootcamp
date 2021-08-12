@@ -17,7 +17,8 @@ export const RouteContext = React.createContext(null);
 const routeReducer = (state, action) => {
   switch (action.type) {
     case ACTIONS.ADD_ROUTE:
-      return { ...state, routes: [...state.routes, action.payload] };
+      // action.payload is an array so we need to also spread it to add to the new array
+      return { ...state, routes: [...state.routes, ...action.payload] };
     default:
       return state;
   }
