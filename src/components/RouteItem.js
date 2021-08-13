@@ -10,6 +10,7 @@ export default function RouteItem({ name, difficulty }) {
       <p>
         Route Difficulty:
         {difficulty}
+        {/* Input field */}
       </p>
     </div>
   );
