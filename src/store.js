@@ -4,7 +4,7 @@ import axios from 'axios';
 export const ACTIONS = {
   GET_ROUTE: 'get-route',
   ADD_ROUTE: 'add-route',
-  ADD_DIFFICULTY: 'add-difficulty',
+  UPDATE_DIFFICULTY: 'update-difficulty',
   REORDER_ROUTE: 'reorder-route',
 };
 
@@ -22,6 +22,10 @@ const routeReducer = (state, action) => {
       return { ...state, routes: [...state.routes, ...action.payload] };
     case ACTIONS.ADD_ROUTE:
       return { ...state, routes: [...state.routes, action.payload] };
+    case ACTIONS.UPDATE_DIFFICULTY:
+      const { updatedRoute, index } = action.payload;
+      state.routes[index] = updatedRoute;
+      return { ...state };
     default:
       return state;
   }
@@ -37,6 +41,14 @@ const getRoutesAction = (routes) => ({
 const addRouteAction = (newRoute) => ({
   type: ACTIONS.ADD_ROUTE,
   payload: newRoute,
+});
+
+const updateRouteAction = (updatedRoute, index) => ({
+  type: ACTIONS.UPDATE_DIFFICULTY,
+  payload: {
+    updatedRoute,
+    index,
+  },
 });
 
 export const RouteProvider = ({ children }) => {
@@ -58,7 +70,11 @@ export const getRoutes = (dispatch) => {
 export const addRoute = (dispatch, currentRoute) => {
   axios.post(`${REACT_APP_BACKEND_URL}/routes`, { currentRoute }).then((result) => {
     dispatch(addRouteAction(result.data));
-    console.log(result.data);
-    // result.data = { name: ... , tripId: ... }
+  });
+};
+
+export const updateRoute = (dispatch, index, id, difficultyInput) => {
+  axios.post(`${REACT_APP_BACKEND_URL}/update`, { id, difficultyInput }).then((result) => {
+    dispatch(updateRouteAction(result.data));
   });
 };
