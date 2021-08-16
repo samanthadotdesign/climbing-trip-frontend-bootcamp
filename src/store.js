@@ -64,6 +64,8 @@ const REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://local
 export const getRoutes = (dispatch) => {
   axios.get(`${REACT_APP_BACKEND_URL}/routes`).then((result) => {
     dispatch(getRoutesAction(result.data.routes));
+    // Postgres doesn't guarantee get request in the same order
+    // Sorting may be required
   });
 };
 

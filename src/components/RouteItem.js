@@ -21,7 +21,7 @@ export const RouteItem = ({
   };
 
   return (
-    <div>
+    <>
       <p>
         Route Name:
         {name}
@@ -32,6 +32,6 @@ export const RouteItem = ({
         <button onClick={handleButtonClick}>Save Difficulty</button>
       </p>
       <hr />
-    </div>
+    </>
   );
 };
