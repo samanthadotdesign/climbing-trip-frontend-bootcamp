@@ -10,9 +10,17 @@ export default function Homepage() {
   // Local state to keep track of the draggable list
   const [draggableList, setDraggableList] = useState(routes);
   // If I have existing routes, load them here using useEffect
-  useEffect(() => {
-    getRoutes(dispatch);
-    setDraggableList(routes);
+  useEffect(async () => {
+    try {
+      const response = await getRoutes(dispatch);
+      console.log('setting draggable list');
+      setDraggableList(response);
+      console.log('before response');
+      console.log(response);
+      console.log('after response');
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
 
   // This handles storing the changed positions of the items
@@ -25,6 +33,11 @@ export default function Homepage() {
 
     setDraggableList(items);
   };
+
+  if (!draggableList) {
+    console.log('foo');
+    return 'foo';
+  }
 
   return (
     <div>

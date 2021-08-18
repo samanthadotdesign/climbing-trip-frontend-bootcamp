@@ -61,13 +61,14 @@ export const RouteProvider = ({ children }) => {
 
 const REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3004';
 
-export const getRoutes = (dispatch) => {
-  axios.get(`${REACT_APP_BACKEND_URL}/routes`).then((result) => {
-    dispatch(getRoutesAction(result.data.routes));
-    // Postgres doesn't guarantee get request in the same order
-    // Sorting may be required
-  });
-};
+export const getRoutes = (dispatch) => axios.get(`${REACT_APP_BACKEND_URL}/routes`).then((result) => {
+  console.log(result);
+  dispatch(getRoutesAction(result.data.routes));
+  // setDraggableList() after GET route is completed
+  // Postgres doesn't guarantee get request in the same order
+  // Sorting may be required
+  return result.data.routes;
+});
 
 export const addRoute = (dispatch, currentRoute) => {
   axios.post(`${REACT_APP_BACKEND_URL}/routes`, { currentRoute }).then((result) => {
